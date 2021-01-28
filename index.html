@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+    <!-- Css leaft-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <title>Document</title>
+</head>
+
+<body><div id="head">
+    <h1>Ciudades y Países</h1>
+</div>
+    
+    <main>
+
+
+        <section id="juego">
+            <div id="cabecera">
+                <button id="creaPartida">Nueva Partida</button>
+                <h2>Temporizador <span id="contador">0 S</span></h2>
+            </div>
+            <div id="zonaGame">
+                <div id="ciudades"></div>
+                <div id="paises"></div>
+            </div>
+
+
+        </section>
+        <section id="mapazona">
+            <div id="mapa"></div>
+        </section>
+        <section id="graficos">
+            <div id="graficoLineas">
+                <div id="line-chart"></div>
+            </div>
+            <div id="graficoTarta">
+                <div id="pie-chart"></div>
+            </div>
+
+        </section>
+    </main>
+    <template id="templateCiudad">
+        <div class="boxCiudad">
+            <h1>Ciudad</h1>
+        </div>
+    </template>
+    <template id="templatePais">
+        <div class="boxPais">
+            <h2>País</h2>
+            <div id="dropZone" class="defecto"></div>
+        </div>
+    </template>
+    <!-- Script leaft despues del css-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="./js/javascript.backup.js" type="module"></script>
+</body>
+
+</html>

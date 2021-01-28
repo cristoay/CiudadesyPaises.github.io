@@ -1,0 +1,249 @@
+@font-face {
+  font-family: 'AlfaSlabOne';
+  src: url("../fonts/AlfaSlabOne-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Gorditas';
+  src: url("../fonts/Gorditas-Regular.ttf");
+}
+
+html {
+  height: 100%;
+}
+
+html body {
+  font-family: Gorditas;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 100%;
+  margin: 0%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+html body #head {
+  background-color: #344ea2;
+}
+
+html body #head h1 {
+  text-align: center;
+  color: white;
+}
+
+html body main {
+  margin: 0;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+html body main #juego {
+  margin: 0;
+  height: 48%;
+  width: 70%;
+  border-bottom: solid;
+  border-color: steelBlue;
+}
+
+html body main #juego #cabecera {
+  height: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: lightblue;
+  padding: 20px;
+}
+
+html body main #juego #cabecera button {
+  font-family: Gorditas;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-color: blue;
+  background-color: whitesmoke;
+  color: blue;
+  border-radius: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 20px;
+  outline: none;
+}
+
+html body main #juego #cabecera button:hover {
+  background-color: lightgrey;
+}
+
+html body main #juego #cabecera button:active {
+  background-color: grey;
+}
+
+html body main #juego #cabecera button:disabled {
+  background-color: lightgrey;
+  border-color: grey;
+  color: grey;
+  opacity: 70%;
+}
+
+html body main #juego #cabecera h2 {
+  color: blue;
+}
+
+html body main #juego #zonaGame {
+  height: 89%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+html body main #juego #zonaGame #paises {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+html body main #juego #zonaGame #paises .boxPais {
+  border: solid;
+  border-radius: 10px;
+  border-color: blue;
+  width: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: lightblue;
+}
+
+html body main #juego #zonaGame #paises .boxPais h2 {
+  display: inline-block;
+}
+
+html body main #juego #zonaGame #paises .boxPais #dropZone {
+  border-top: solid;
+  border-color: blue;
+  width: 100%;
+  height: 100px;
+}
+
+html body main #juego #zonaGame #paises .boxPais .defecto {
+  background-color: white;
+}
+
+html body main #juego #zonaGame #paises .boxPais .correcto {
+  background-color: lightgreen;
+}
+
+html body main #juego #zonaGame #ciudades {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-bottom: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: dotted;
+  border-bottom-color: lightblue;
+}
+
+html body main #juego #zonaGame #ciudades .boxCiudad {
+  display: inline-block;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border: solid;
+  border-radius: 10px;
+  border-color: blue;
+  background-color: lightblue;
+}
+
+html body main #juego #zonaGame #ciudades .boxCiudad h1 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+html body main #mapazona {
+  margin: 0;
+  width: 30%;
+  height: 48%;
+  border-bottom: solid;
+  border-bottom-color: steelBlue;
+}
+
+html body main #mapazona #mapa {
+  height: 100%;
+}
+
+html body main #graficos {
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 50%;
+  width: 100%;
+}
+
+html body main #graficos #graficoTarta {
+  width: 30%;
+  min-width: 500px;
+}
+
+html body main #graficos #graficoTarta #pie-chart {
+  width: 100%;
+  height: 100%;
+}
+
+html body main #graficos #graficoLineas {
+  width: 70%;
+  min-width: 500px;
+}
+
+html body main #graficos #graficoLineas #line-chart {
+  width: 100%;
+  height: 100%;
+}
+/*# sourceMappingURL=styles.css.map */

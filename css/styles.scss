@@ -1,0 +1,182 @@
+$backGroundColorBox: lightblue;
+$borderColorblue:steelBlue;
+@font-face{
+    font-family: 'AlfaSlabOne';
+    src: url('../fonts/AlfaSlabOne-Regular.ttf');
+}
+@font-face{
+    font-family: 'Gorditas';
+    src: url('../fonts/Gorditas-Regular.ttf');
+}
+@mixin bordeRedondo {
+    border: solid;
+    border-radius: 10px;
+    border-color: blue;
+}
+html{
+    height: 100%;  
+    body{
+        font-family: Gorditas;
+        #head{
+            background-color: rgb(52, 78, 162);
+            h1{
+                text-align: center;
+                color: white;
+                
+            }
+        }
+        
+        box-sizing: border-box;
+        height: 100%;
+        margin: 0%;
+        display: flex;
+        flex-direction: column;
+        main{
+            margin: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            #juego{
+                margin: 0;
+                height: 48%;
+                width: 70%;
+                border-bottom: solid;
+                border-color: $borderColorblue;
+                #cabecera{
+                    height: 10%;
+                    display: flex;
+                    justify-content: space-between;
+                    background-color: $backGroundColorBox;
+                    padding: 20px;
+                    button{
+                        font-family: Gorditas;
+                        box-sizing: border-box;
+                        border-color: blue;
+                        background-color: whitesmoke;
+                        color: blue;
+                        border-radius: 15px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                        font-size: 20px;
+                        outline: none;
+                        &:hover{
+                            background-color: lightgrey;
+                        }
+                        &:active{
+                            background-color: grey;
+                        }
+                        &:disabled{
+                            background-color: lightgrey;
+                            border-color: grey;
+                            color: grey;
+                            opacity: 70%;
+                        }
+                    }
+                    h2{
+                        color: blue;
+                    }
+                }
+                #zonaGame{
+                    height: 89%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content:space-around;
+                    #paises{
+                        display: flex;
+                        justify-content: space-around;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        
+                        .boxPais{
+                            @include bordeRedondo();
+                            width: 200px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            background-color:$backGroundColorBox;
+                            h2{
+                                display: inline-block;   
+                            }
+                            #dropZone{     
+                                border-top: solid;
+                                border-color: blue;
+                                width: 100%;
+                                height: 100px;
+                            }
+                            .defecto{
+                                background-color:white;
+                            }
+                            .correcto{
+                            background-color: lightgreen;
+                            }
+                        }
+                    }
+                    #ciudades{
+                        box-sizing: border-box;
+                        padding-bottom: 80px;
+                        display: flex;
+                        justify-content: space-around;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        border-bottom: dotted;
+                        border-bottom-color:$backGroundColorBox ;
+                        .boxCiudad{
+                            display: inline-block;
+                            width: max-content;
+                            @include bordeRedondo();
+                            background-color: $backGroundColorBox;
+                            h1{
+                                padding-left: 10px;
+                                padding-right: 10px;
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }
+            #mapazona{
+                margin: 0;
+                width: 30%;
+                height: 48%;
+                border-bottom: solid;
+                border-bottom-color: $borderColorblue;
+                #mapa{
+                    height: 100%;
+                }
+            }
+            #graficos{
+                margin: 0;
+                display: flex;  
+                flex-direction: row;
+                flex-wrap: wrap;
+                height: 50%;
+                width: 100%;
+                
+                #graficoTarta{
+                    width: 30%;
+                    min-width: 500px;
+                    #pie-chart{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                #graficoLineas{
+                    width: 70%;
+                    min-width: 500px;
+                    #line-chart{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                
+            }
+        
+        }
+    }
+}
+
+
+
+
