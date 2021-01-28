@@ -1,16 +1,43 @@
 import * as modulo from './questions.js';
-//console.log(modulo.gameData);
 
 const db = modulo.gameData;
 console.log("Version de inicio")
 console.log(db);
-var secJuego = document.getElementById("juego");
 var juegoPaises = document.getElementById("paises");
 var juegoCiudades = document.getElementById("ciudades");
-var secMapa = document.getElementById("mapa");
-var secGrafico = document.getElementById("graficos");
 var puntuacion = 0;
 const cantidad = 5;
+var intento =1;
+var temporizador= 0;
+var reloj;
+var cont = document.getElementById("contador");
+var botonIniciar = document.getElementById("creaPartida");
+function inicioTiempo(){
+    temporizador=0;
+    cont.textContent = temporizador+" S";
+    reloj = setInterval(tiempoContador,1000);
+}
+function tiempoContador(){
+    temporizador++;
+    cont.textContent = temporizador+" S";
+
+}
+
+  function shuffleFisherYates(array) {
+    let i = array.length;
+    while (i--) {
+      const ri = Math.floor(Math.random() * (i + 1));
+      [array[i], array[ri]] = [array[ri], array[i]];
+    }
+    return array;
+  }
+//Variables graficos
+var data;
+var chart;
+var options;
+var dataLinea;
+var chartLinea;
+var optionsLinea;
 //Mapa
 const tilesProvides = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 var mymap = L.map('mapa').setView([28.456042777672216, -16.28328143719453], 23);
@@ -22,21 +49,16 @@ L.tileLayer(tilesProvides, {
 var marcador = L.marker([28.456042777672216, -16.28328143719453]).addTo(mymap).bindPopup("Cesar Manrique");
 
 function cambiarZona(coordenadas, nombre) {
-    mymap.setView(coordenadas, 23);
+    mymap.removeLayer(marcador);
+    mymap.flyTo(coordenadas, 18);
     marcador = L.marker(coordenadas).addTo(mymap).bindPopup(nombre);
 }
 
-function objeto(nombre, codigo) {
-    this.nombre = nombre;
-    this.codigo = codigo;
-}
 
 
 function crearPartida() {
-    console.log("Db llamado al crear la partida")
-    console.log(db);
-    //Cambiar el set a un array y comprobar que los elementos no se repiten
-    //var partidaPaises = new Set();
+    inicioTiempo();
+    botonIniciar.disabled =true;
     puntuacion = 0;
     var partidaPaises = [];
     var partidaCiudades = [];
@@ -46,90 +68,44 @@ function crearPartida() {
     while (document.getElementById("ciudades").firstChild) {
         document.getElementById("ciudades").removeChild(document.getElementById("ciudades").firstChild);
     }
-    // //error aqui no inserta los objetos
+
     while (partidaPaises.length < cantidad) {
         var paisActual = db.countries[Math.floor(Math.random() * db.countries.length)];
-        var insertarPais = new objeto(paisActual.name, paisActual.code);
+       
+        var insertarPais = new Object();
+        insertarPais.nombre = paisActual.name;
+        insertarPais.codigo = paisActual.code;
         var index = partidaPaises.findIndex(x => x.nombre == insertarPais.nombre);
         if (index == -1) {
             partidaPaises.push(insertarPais);
         }
-        // partidaPaises.find(x =>() => {if (x.nombre==insertarPais.nombre){partidaPaises.push(insertarPais)}});
-        //   if(partidaPaises.length==0){
-        //       partidaPaises.push(insertarPais);
-        //   }else{
-        //     partidaPaises.forEach(element => {
-        //       if (element.codigo == insertarPais.codigo){
-        //           console.log("Ya esta por eso no lo añade");
-        //           prueba++;
-        //       }
-        //   });
-        //   if(prueba==0){
-        //       partidaPaises.push(insertarPais);
-        //   }
-        //   }
-        //console.log(insertarPais);
 
-        //      // if (!partidaPaises.has(insertarPais.nombre)){
-        //      //     partidaPaises.add(insertarPais); 
-        //      // }
 
     }
-    console.log("dESPUES D EL WHILE")
-    console.log(db);
-    //console.log(partidaPaises);
+    
     partidaPaises.forEach(a => {
         var paisTest = db.countries.find(b => b.name == a.nombre);
         var ciud = paisTest.cities[Math.floor(Math.random() * paisTest.cities.length)];
-        var insertarCiudad = new objeto(ciud.name, paisTest.code);
+        
+        var insertarCiudad = new Object();
+        insertarCiudad.nombre = ciud.name;
+        insertarCiudad.codigo = paisTest.code;
         partidaCiudades.push(insertarCiudad);
-        //console.log(paisTest);
+
     })
-    console.log("dESPUES DEL FOREACH DE PARTIDAPAISES")
-    console.log(db);
-    //console.log(partidaCiudades);
 
-
-    //  db.countries.forEach(element => {
-    //      partidaPaises.forEach(elemento => {
-    //          if(elemento.codigo==element.code){
-    //              var paisActualciudad = element.cities[Math.floor(Math.random()*element.cities.length)];
-    //          var insertarCiudad = new objeto(paisActualciudad.name,element.code)
-    //         // console.log(element.name);
-    //          partidaCiudades.push(insertarCiudad);
-    //          }
-    //      });
-
-
-
-    // if(partidaPaises.has(element.name)){
-    //     console.log("Detectado el pais");
-    //     var paisActual = element.cities[Math.floor(Math.random()*element.cities.length)];
-    //     var insertarCiudad = new objeto(paisActual.name,element.code)
-    //     console.log(element.name);
-    //     partidaCiudades.push(insertarCiudad);
-    // }
-    // console.log(partidaCiudades);
-    //});
-    //console.log(partidaPaises);
-    //console.log("-------------------------------")
-    //console.log(partidaCiudades);
     partidaCiudades.forEach(element => {
-        //console.log("Aqui esta los objetos ciudades y sus atributos");
-        //console.log(element.nombre);
-        // console.log(element.codigo);
         crearCiudad(element.nombre, element.codigo);
     });
-    console.log("DESPUES DEL FOREACH DE PARTIDA CIUDADES")
-    console.log(db);
+    
+    shuffleFisherYates(partidaPaises);
+    
+    
     partidaPaises.forEach(element => {
-        //console.log("Aqui esta los objetos paises y sus atributos");
-        //console.log(element.nombre);
-        //console.log(element.codigo);
         crearPais(element.nombre, element.codigo);
     });
-    console.log("DESPUES DEL FOREACH DE PARTIDA PAISES 2")
-    console.log(db);
+    
+    
 }
 
 function clonarNodo(lugar) {
@@ -138,19 +114,12 @@ function clonarNodo(lugar) {
     return clonado;
 }
 
-var pais = clonarNodo("templatePais");
-var ciudad = clonarNodo("templateCiudad");
-//console.log(pais);
-//console.log(ciudad);
-
 function crearPais(nombre, codigo) {
     var pais = clonarNodo("templatePais");
     pais.firstElementChild.firstElementChild.textContent = nombre;
     pais.firstElementChild.dataset.paiscodigo = codigo;
     juegoPaises.appendChild(pais);
-    console.log("-----------------------------")
-    console.log($('*[data-paiscodigo="' + codigo + '"]'));
-    //probar con ui.dragable
+
     $('*[data-paiscodigo="' + codigo + '"]').droppable({
         accept: function (ui) {
             if (ui.attr("data-ciudadcodigo") == codigo) {
@@ -158,42 +127,57 @@ function crearPais(nombre, codigo) {
             }
         },
         drop: function (event, ui) {
-            console.log("jUSTO AL ACTIVAR EL DROP")
-            console.log(db);
-            //console.log(ui.draggable[0])
-            var ciudad = ui.draggable[0];
-            console.log("Aqui debajo esta la ciudad");
-            console.log(ciudad);
-           // console.log("Aqui esta la ciudad " + ciudad)
-            if (ciudad.dataset.ciudadcodigo == codigo) {
-               // console.log(ui);
-               $('*[data-paiscodigo="' + codigo + '"]')[0].firstElementChild.nextElementSibling.style.backgroundColor = "lightgreen";
-                //console.log($("#"+nombre)[0])
-                var test = db.countries.find(x => x.code == codigo)
-                var test2 = test.cities.find(y => y.name = nombre);
-                cambiarZona(test2.location, test2.name);
 
-                //console.log(test);
-                //console.log(test2);
+            var ciudad = ui.draggable[0];
+
+
+            if (ciudad.dataset.ciudadcodigo == codigo) {
+
+                $('*[data-paiscodigo="' + codigo + '"]')[0].firstElementChild.nextElementSibling.classList.remove("defecto");
+                $('*[data-paiscodigo="' + codigo + '"]')[0].firstElementChild.nextElementSibling.classList.add("correcto");
+
+                var paisBuscado = db.countries.find(x => x.code == codigo)
+
+                var ciudadBuscada = paisBuscado.cities.find(y => y.name == ui.draggable[0].dataset.nombreCiudad);
+
+                cambiarZona(ciudadBuscada.location, ui.draggable[0].dataset.nombreCiudad);
+
+                //Buscador del elemento draggable añade el dropable a la tabla si no esta y si esta le añade una ocurrencia
+                var encontrada = false;
+                for (let j = 0; j < data.getNumberOfRows(); j++) {
+                    if (data.getValue(j, 0) == nombre) {
+                        encontrada = true;
+                    }
+                }
+                if (encontrada === false) {
+                    data.addRow([nombre, 1]);
+                } else {
+                    for (let i = 0; i < data.getNumberOfRows(); i++) {
+                        console.log(data.getValue(i, 0));
+                        if (data.getValue(i, 0) == nombre) {
+                            var ocurren = data.getValue(i, 1);
+                            ocurren++;
+                            console.log(ocurren);
+                            data.setCell(i, 1, ocurren);
+                        }
+                    }
+                }
+
+
+                chart.draw(data, options);
 
                 puntuacion++;
                 ui.draggable.draggable("disable");
 
-                //$("#"+ui.draggable.attr('id')).draggable("disable");
             }
             if (puntuacion == cantidad) {
-                //console.log("Se ha acabado la partida")
-                //console.log(db);
-                // console.log(modulo.gameData)
+                clearTimeout(reloj);
+                dataLinea.addRow([intento,temporizador]);
+                intento++;
+                chartLinea.draw(dataLinea,optionsLinea);
+                botonIniciar.disabled = false;
             }
-            //Si se han movido todas las imagenes se mostrara el mensaje final
-            // if(jugadas==img){
-            //     $("#dialog").find("p").html("Su puntuación es de "+puntuacion);
-            //     $( "#dialog" ).dialog( "open" );
-            //     notificacion('puntuacion',"Puntuación : "+puntuacion);
-            //     console.log("Usted ha acabado con "+ puntuacion);
 
-            // }
         }
     })
 
@@ -201,14 +185,65 @@ function crearPais(nombre, codigo) {
 
 function crearCiudad(nombre, codigo) {
     var ciudad = clonarNodo("templateCiudad");
-    var ciudadNombre = nombre.replace(/ /g, "-");
     ciudad.firstElementChild.firstElementChild.textContent = nombre;
     ciudad.firstElementChild.dataset.ciudadcodigo = codigo;
+    ciudad.firstElementChild.dataset.nombreCiudad = nombre;
     juegoCiudades.appendChild(ciudad);
-    $('[data-ciudadcodigo="'+codigo).draggable({
+    $('[data-ciudadcodigo="' + codigo).draggable({
         revert: "invalid"
     });
 }
+//Graficos 
+// Load the Visualization API and the corechart package.
+google.charts.load('current', { 'packages': ['corechart'] });
 
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawChart);
 
-document.getElementById("creaPartida").addEventListener("click", crearPartida);
+// Callback that creates and populates a data table,
+// instantiates the pie chart, passes in the data and
+// draws it.
+function drawChart() {
+    // Create the data table.
+    data = new google.visualization.DataTable();
+    data.addColumn('string', 'Paises');
+    data.addColumn('number', 'Ocurrencias');
+    data.addRow();
+
+    // Set chart options
+    options = {
+        'title': 'Ocurrencias de países'
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    chart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+    chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChartLine);
+
+function drawChartLine() {
+    dataLinea = new google.visualization.DataTable();
+    dataLinea.addColumn('number','Intentos');
+    dataLinea.addColumn('number','Tiempo');
+    
+
+    optionsLinea = {
+        title: 'Tiempo de partida',
+        curveType: 'function',
+        legend: { position: 'rigth' },
+        hAxis: {viewWindowMode: 'explicit',
+        
+    },
+        
+    };
+
+    chartLinea = new google.visualization.LineChart(document.getElementById('line-chart'));
+
+    chartLinea.draw(dataLinea, optionsLinea);
+}
+
+$(window).resize(function(){
+    chartLinea.draw(dataLinea,optionsLinea);
+    chart.draw(data, options);
+  });
+botonIniciar.addEventListener("click", crearPartida);
