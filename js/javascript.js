@@ -1,5 +1,7 @@
 import * as modulo from './questions.js';
-
+ /**
+  * Variables globales
+  */
 const db = modulo.gameData;
 console.log("Version de inicio")
 console.log(db);
@@ -12,16 +14,26 @@ var temporizador= 0;
 var reloj;
 var cont = document.getElementById("contador");
 var botonIniciar = document.getElementById("creaPartida");
+ /**
+  * Funcion que empieza el contador
+  */
 function inicioTiempo(){
     temporizador=0;
     cont.textContent = temporizador+" S";
     reloj = setInterval(tiempoContador,1000);
 }
+/**
+ * Función que modifica el contador en el html
+ */
 function tiempoContador(){
     temporizador++;
     cont.textContent = temporizador+" S";
 
 }
+/**
+ * Función que modifica un array de manera aleatoria
+ * @param {array} array 
+ */
 
   function shuffleFisherYates(array) {
     let i = array.length;
@@ -38,23 +50,32 @@ var options;
 var dataLinea;
 var chartLinea;
 var optionsLinea;
+var cesarManrique = [28.456042777672216, -16.28328143719453];
+var zoom=23;
+var zoomFly=18;
 //Mapa
 const tilesProvides = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-var mymap = L.map('mapa').setView([28.456042777672216, -16.28328143719453], 23);
+var mymap = L.map('mapa').setView(cesarManrique, zoom);
 L.tileLayer(tilesProvides, {
     attribution: 'Map data openstreetmap'
 
 }).addTo(mymap);
 
-var marcador = L.marker([28.456042777672216, -16.28328143719453]).addTo(mymap).bindPopup("Cesar Manrique");
-
+var marcador = L.marker(cesarManrique).addTo(mymap).bindPopup("Cesar Manrique");
+/**
+ * Función que cambia la zona del mapa
+ * @param {*} coordenadas Coordenadas de la ciudad en la que se situara el mapa
+ * @param {*} nombre Nombre de la ciudad que se situa en el mapa
+ */
 function cambiarZona(coordenadas, nombre) {
     mymap.removeLayer(marcador);
-    mymap.flyTo(coordenadas, 18);
+    mymap.flyTo(coordenadas, zoomFly);
     marcador = L.marker(coordenadas).addTo(mymap).bindPopup(nombre);
 }
 
-
+/**
+ * Función que crea la partida
+ */
 
 function crearPartida() {
     inicioTiempo();
@@ -107,13 +128,20 @@ function crearPartida() {
     
     
 }
-
+/**
+ * Clona un nodo
+ * @param {*} lugar Id del nodo
+ */
 function clonarNodo(lugar) {
     var temp = document.getElementById(lugar);
     var clonado = temp.content.cloneNode(true);
     return clonado;
 }
-
+/**
+ * Función que modifica el nodo para un país
+ * @param {*} nombre Nombre del pais
+ * @param {*} codigo Codigo del pais
+ */
 function crearPais(nombre, codigo) {
     var pais = clonarNodo("templatePais");
     pais.firstElementChild.firstElementChild.textContent = nombre;
@@ -182,7 +210,11 @@ function crearPais(nombre, codigo) {
     })
 
 }
-
+/**
+ * Función que modifica el nodo de la ciudad
+ * @param {*} nombre Nombre de la ciudad
+ * @param {*} codigo Codigo del pais
+ */
 function crearCiudad(nombre, codigo) {
     var ciudad = clonarNodo("templateCiudad");
     ciudad.firstElementChild.firstElementChild.textContent = nombre;
@@ -203,6 +235,9 @@ google.charts.setOnLoadCallback(drawChart);
 // Callback that creates and populates a data table,
 // instantiates the pie chart, passes in the data and
 // draws it.
+/**
+ * Función dibuja el pie-chart
+ */
 function drawChart() {
     // Create the data table.
     data = new google.visualization.DataTable();
@@ -220,7 +255,9 @@ function drawChart() {
     chart.draw(data, options);
 }
 google.charts.setOnLoadCallback(drawChartLine);
-
+/**
+ * Dibuja el line-chart
+ */
 function drawChartLine() {
     dataLinea = new google.visualization.DataTable();
     dataLinea.addColumn('number','Intentos');
@@ -241,7 +278,7 @@ function drawChartLine() {
 
     chartLinea.draw(dataLinea, optionsLinea);
 }
-
+//Cada vez que se modifica la ventana se dibujan de nuevo los graficos para ajustar sus tamaños 
 $(window).resize(function(){
     chartLinea.draw(dataLinea,optionsLinea);
     chart.draw(data, options);

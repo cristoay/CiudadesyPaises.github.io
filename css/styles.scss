@@ -25,7 +25,6 @@ html{
                 
             }
         }
-        
         box-sizing: border-box;
         height: 100%;
         margin: 0%;
@@ -39,7 +38,7 @@ html{
             flex-wrap: wrap;
             #juego{
                 margin: 0;
-                height: 48%;
+                height: auto;
                 width: 70%;
                 border-bottom: solid;
                 border-color: $borderColorblue;
@@ -78,16 +77,19 @@ html{
                     }
                 }
                 #zonaGame{
-                    height: 89%;
+                    height: auto;
                     display: flex;
                     flex-direction: column;
                     justify-content:space-around;
                     #paises{
+                        margin-top: 30px;
+                        gap: 10px;
                         display: flex;
                         justify-content: space-around;
                         flex-wrap: wrap;
                         align-items: center;
-                        
+                        height: auto;
+                        padding-bottom: 20px;
                         .boxPais{
                             @include bordeRedondo();
                             width: 200px;
@@ -113,6 +115,8 @@ html{
                         }
                     }
                     #ciudades{
+                        margin-top: 30px;
+                        gap: 10px;
                         box-sizing: border-box;
                         padding-bottom: 80px;
                         display: flex;
@@ -120,6 +124,7 @@ html{
                         flex-wrap: wrap;
                         align-items: center;
                         border-bottom: dotted;
+                        height: auto;
                         border-bottom-color:$backGroundColorBox ;
                         .boxCiudad{
                             display: inline-block;
@@ -139,7 +144,7 @@ html{
             #mapazona{
                 margin: 0;
                 width: 30%;
-                height: 48%;
+                height: auto;
                 border-bottom: solid;
                 border-bottom-color: $borderColorblue;
                 #mapa{
